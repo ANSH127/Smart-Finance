@@ -20,7 +20,7 @@ export default function SignInScreen() {
 
     const handleSubmit = async () => {
         if (email && password) {
-            console.log(email, password)
+            // console.log(email, password)
             // navigation.goBack();
             // navigation.navigate('Home');
             try {
