@@ -10,7 +10,7 @@ import { auth } from '../config/firebase'
 import Loading from '../components/loading'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserLoading } from '../redux/slices/user'
-
+import { themeColors } from '../theme'
 
 export default function SignUnScreen() {
     const [email, setEmail] = React.useState('')
@@ -52,7 +52,7 @@ export default function SignUnScreen() {
 
     }
     return (
-        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={-100} >
+        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={-100} style={{ backgroundColor: themeColors.bg }} >
             <ScreenWrapper>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
                     <View className="flex justify-between h-full mx-4">
@@ -74,7 +74,7 @@ export default function SignUnScreen() {
                                 <TextInput value={email} className="p-4 bg-white rounded-full mb-3" onChangeText={(val) => setEmail(val)} />
                                 <Text className={`${colors.heading} text-lg font-bold`} >Password</Text>
                                 <TextInput secureTextEntry value={password} className="p-4 bg-white rounded-full mb-3" onChangeText={(val) => setPassword(val)} />
-                                <TouchableOpacity className="flex-row ">
+                                <TouchableOpacity className="flex-row " onPress={()=>navigation.navigate('SignIn')} >
                                     <Text>Already have an account?</Text>
                                 </TouchableOpacity>
                             </View>

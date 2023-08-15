@@ -9,6 +9,7 @@ import { auth } from '../config/firebase'
 import Loading from '../components/loading'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserLoading } from '../redux/slices/user'
+import { themeColors } from '../theme'
 
 export default function SignInScreen() {
     const [email, setEmail] = React.useState('')
@@ -47,10 +48,10 @@ export default function SignInScreen() {
 
     }
     return (
-        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={-100} >
-            <ScreenWrapper>
+        <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={-100} style={{ backgroundColor: themeColors.bg }} >
+            <ScreenWrapper >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-                    <View className="flex justify-between h-full mx-4">
+                    <View className="flex justify-between h-full mx-4" >
                         <View>
                             <View className="relative">
                                 <View className="absolute top-0 left-0">

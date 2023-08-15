@@ -10,3 +10,7 @@ export const categoryBG = {
     entertainment: '#ffdfdd',
     other: '#CAD309'
 }
+
+export const themeColors = {
+    bg: '#877dfa',
+ }
