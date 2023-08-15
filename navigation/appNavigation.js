@@ -38,9 +38,6 @@ export default function AppNavigation() {
     
   })
 
-  useEffect(() => {
-    console.log('user', user)
-  }, [user])
 
 
 

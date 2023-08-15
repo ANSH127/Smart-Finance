@@ -54,7 +54,7 @@ export default function TripExpensesScreen(props) {
             amt += parseInt((doc.data().amount));
 
         });
-        console.log(data);
+        // console.log(data);
 
         data = data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 

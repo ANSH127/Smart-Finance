@@ -13,7 +13,7 @@ export default function WelcomScreen() {
                 <Image source={require('../assets/images/welcome.gif')} className='h-96 w-96'  />
             </View>
             <View className='mx-5 mb-20'>
-                <Text className={`text-center font-bold text-4xl ${colors.heading} mb-10`}>Expensify</Text>
+                <Text className={`text-center font-bold text-4xl ${colors.heading} mb-10`}>ZenFinance</Text>
 
                 <TouchableOpacity onPress={()=>navigation.navigate('SignIn')} className='shadow p-3 rounded-full mb-5' style={{backgroundColor:colors.button}} >
                     <Text className='text-center text-white text-lg font-bold' >Sign In</Text>
