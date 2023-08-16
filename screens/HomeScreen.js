@@ -8,7 +8,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { signOut } from 'firebase/auth'
 import { auth, tripsRef } from '../config/firebase'
 import { useSelector } from 'react-redux'
-import {getDocs, query, where } from 'firebase/firestore'
+import { getDocs, query, where } from 'firebase/firestore'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -56,48 +56,53 @@ export default function HomeScreen() {
   // console.log(Platform.OS)
   const navigation = useNavigation();
 
-  const {user}=useSelector(state=>state.user);
-  const [trips,setTrips]=useState([]);
+  const { user } = useSelector(state => state.user);
+  const [trips, setTrips] = useState([]);
 
-  const isFocused=useIsFocused();
+  const isFocused = useIsFocused();
 
-  const fetchTrips=async()=>{
+  const fetchTrips = async () => {
     // console.log('fetchTrips');
     // console.log(user.uid);
 
-    const q=query(tripsRef,where("userId","==",user.uid));
-    const querySnapshot=await getDocs(q);
-    let data=[]
+    const q = query(tripsRef, where("userId", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+    let data = []
     querySnapshot.forEach(doc => {
       // console.log(doc.data());
-      data.push({...doc.data(),id:doc.id})
-      
+      data.push({ ...doc.data(), id: doc.id })
+
     });
     setTrips(data);
   }
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     await signOut(auth);
     await AsyncStorage.removeItem('username');
     await AsyncStorage.removeItem('password');
-    
+
   }
 
-  useEffect(()=>{
-    if(isFocused){
-      
+  useEffect(() => {
+    if (isFocused) {
+
       fetchTrips();
     }
 
-  },[isFocused])
+  }, [isFocused])
 
   return (
     <ScreenWrapper className='flex-1'>
       <View className="flex-row justify-between items-center p-4">
         <Text className={`${colors.heading} font-bold text-3xl shadow-sm`} >ZenFinance</Text>
-        <TouchableOpacity onPress={handleLogout} className='p-2 px-3 bg-white border border-gray-200 rounded-full' >
-          <Text className={colors.heading} >Logout</Text>
-        </TouchableOpacity>
+        <View className='flex-row'>
+
+          <TouchableOpacity onPress={()=>navigation.navigate('Calci')} className='p-2 px-3 bg-white border border-gray-200 rounded-full' >
+            <Text className={colors.heading} >Calculator</Text>
+          </TouchableOpacity><TouchableOpacity onPress={handleLogout} className='p-2 px-3 bg-white border border-gray-200 rounded-full' >
+            <Text className={colors.heading} >Logout</Text>
+          </TouchableOpacity>
+        </View>
 
       </View>
       <View className='flex-row justify-center items-center bg-blue-200 rounded-xl mx-4 mb-4 ' >
@@ -121,7 +126,7 @@ export default function HomeScreen() {
 
             renderItem={({ item }) => {
               return (
-                <TouchableOpacity className={`bg-white ${Platform.OS === 'android' ? 'p-2' : 'p-3'} rounded-2xl mb-3 shadow-sm`} onPress={() => navigation.navigate('TripExpenses',{...item})}  >
+                <TouchableOpacity className={`bg-white ${Platform.OS === 'android' ? 'p-2' : 'p-3'} rounded-2xl mb-3 shadow-sm`} onPress={() => navigation.navigate('TripExpenses', { ...item })}  >
                   <View>
                     <Image source={randomImage()} className="w-36 h-36 mb-2 " />
                     <Text className={`${colors.heading} font-bold `} >{item.place}</Text>
