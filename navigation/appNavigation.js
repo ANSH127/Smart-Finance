@@ -14,6 +14,9 @@ import { setUser } from '../redux/slices/user';
 import { auth } from '../config/firebase';
 import { Alert } from 'react-native';
 import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 
 
@@ -25,10 +28,11 @@ export default function AppNavigation() {
   const dispach = useDispatch();
 
   onAuthStateChanged(auth, (user) => {
-    // console.log('user', user)
     if(user?.emailVerified){
 
       dispach(setUser(user))
+      
+
     }
     else{
       user?Alert.alert('Please verify your email'):null;
@@ -38,6 +42,31 @@ export default function AppNavigation() {
     
   })
 
+  const fetchUser = async () => {
+    try {
+      const user = await AsyncStorage.getItem('username');
+      const password = await AsyncStorage.getItem('password');
+      if (user && password) {
+        try {
+
+          await signInWithEmailAndPassword(auth, user, password);
+
+        }
+        catch (e) {
+          Alert.alert('Error', e.message)
+        }
+        
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
+
+  useEffect(() => {
+    fetchUser();
+  }, [])
 
 
 

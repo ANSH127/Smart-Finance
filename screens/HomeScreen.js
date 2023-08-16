@@ -9,6 +9,8 @@ import { signOut } from 'firebase/auth'
 import { auth, tripsRef } from '../config/firebase'
 import { useSelector } from 'react-redux'
 import {getDocs, query, where } from 'firebase/firestore'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const items = [
@@ -60,6 +62,9 @@ export default function HomeScreen() {
   const isFocused=useIsFocused();
 
   const fetchTrips=async()=>{
+    // console.log('fetchTrips');
+    // console.log(user.uid);
+
     const q=query(tripsRef,where("userId","==",user.uid));
     const querySnapshot=await getDocs(q);
     let data=[]
@@ -73,6 +78,9 @@ export default function HomeScreen() {
 
   const handleLogout = async() => {
     await signOut(auth);
+    await AsyncStorage.removeItem('username');
+    await AsyncStorage.removeItem('password');
+    
   }
 
   useEffect(()=>{

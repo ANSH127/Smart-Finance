@@ -10,6 +10,8 @@ import Loading from '../components/loading'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserLoading } from '../redux/slices/user'
 import { themeColors } from '../theme'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function SignInScreen() {
     const [email, setEmail] = React.useState('')
@@ -21,15 +23,16 @@ export default function SignInScreen() {
 
     const handleSubmit = async () => {
         if (email && password) {
-            // console.log(email, password)
-            // navigation.goBack();
-            // navigation.navigate('Home');
             try {
 
                 dispatch(setUserLoading(true));
 
-                // await setPersistence(auth, 'SESSION');
                 await signInWithEmailAndPassword(auth, email, password);
+
+                AsyncStorage.setItem('username', email);
+                AsyncStorage.setItem('password', password);
+
+
 
 
 
