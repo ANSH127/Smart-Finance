@@ -9,6 +9,7 @@ import WelcomScreen from '../screens/WelcomScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import CalciScreen from '../screens/CalciScreen';
+import ModifyExpenseScreen from '../screens/ModifyExpenseScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { setUser } from '../redux/slices/user';
@@ -79,6 +80,7 @@ export default function AppNavigation() {
           <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
           <Stack.Screen options={{ headerShown: false }} name="AddTrip" component={AddTripScreen} />
           <Stack.Screen options={{ headerShown: false }} name="TripExpenses" component={TripExpensesScreen} />
+          <Stack.Screen options={{ headerShown: false,presentation:'modal' }} name="ModifyExpenses" component={ModifyExpenseScreen} />
           <Stack.Screen options={{ headerShown: false }} name="AddTripExpenses" component={AddExpenseScreen} />
           <Stack.Screen options={{ headerShown: false,presentation:'modal' }} name="Calci" component={CalciScreen} />
 
